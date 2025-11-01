@@ -7,21 +7,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class AnimalMapper {
 
-    public AnimalEntity toEntity(Animal animal) {
-        return AnimalEntity.builder()
-            .id(animal.getId())
-            .nombre(animal.getNombre())
-            .especie(animal.getEspecie())
-            .edad(animal.getEdad())
-            .build();
-    }
+  public AnimalEntity toEntity(Animal animal) {
+    return new AnimalEntity(animal.getNombre(), animal.getEspecie(),
+        animal.getEdad(), animal.getHabitat());
+  }
 
-    public Animal toDomain(AnimalEntity entity) {
-        return new Animal(
-            entity.getId(),
-            entity.getNombre(),
-            entity.getEspecie(),
-            entity.getEdad()
-        );
-    }
+  public Animal toDomain(AnimalEntity entity) {
+    return new Animal(
+        entity.getId(),
+        entity.getNombre(),
+        entity.getEspecie(),
+        entity.getEdad(),
+        entity.getHabitat()
+    );
+  }
 }

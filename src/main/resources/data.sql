@@ -1,0 +1,2 @@
+INSERT INTO animal_tabla (nombre, especie, edad,habitat, creado, modificado)  VALUES('Kiba', 'Perro', 7, 'Domestico', '2023-06-25','2023-06-25');
+INSERT INTO animal_tabla (nombre, especie, edad,habitat, creado, modificado)  VALUES('Simba', 'Perro', 10, 'Domestico', '2023-06-25','2023-06-25');

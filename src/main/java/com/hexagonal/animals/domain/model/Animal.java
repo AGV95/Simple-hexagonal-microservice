@@ -1,18 +1,58 @@
 package com.hexagonal.animals.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class Animal {
-    private Long id;
-    private String nombre;
-    private String especie;
-    private int edad;
-    private String habitat;
+
+  private Long id;
+  private String nombre;
+  private String especie;
+  private int edad;
+  private String habitat;
+  
+  public Animal(Long id, String nombre, String especie, int edad, String habitat) {
+    this.id = id;
+    this.nombre = nombre;
+    this.especie = especie;
+    this.edad = edad;
+    this.habitat = habitat;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public String getNombre() {
+    return nombre;
+  }
+
+  public void setNombre(String nombre) {
+    this.nombre = nombre;
+  }
+
+  public String getEspecie() {
+    return especie;
+  }
+
+  public void setEspecie(String especie) {
+    this.especie = especie;
+  }
+
+  public int getEdad() {
+    return edad;
+  }
+
+  public void setEdad(int edad) {
+    this.edad = edad;
+  }
+
+  public String getHabitat() {
+    return habitat;
+  }
+
+  public void setHabitat(String habitat) {
+    this.habitat = habitat;
+  }
 }
