@@ -71,12 +71,17 @@ public class AnimalController {
     public ResponseEntity<Animal> updateAnimal(
             @Parameter(description = "ID del animal") @PathVariable Long id,
             @Parameter(description = "Nuevos datos del animal") @RequestBody Animal animal) {
-        return animalServicePort.getAnimalById(id)
-                .map(existingAnimal -> {
-                    animal.setId(id);
-                    return ResponseEntity.ok(animalServicePort.updateAnimal(animal));
-                })
-                .orElse(ResponseEntity.notFound().build());
+
+        if (animalServicePort.getAnimalById(id).isPresent()) {
+            animal.setId(id);
+            if (animalServicePort.updateAnimal(animal) > 0) {
+                return ResponseEntity.ok(animalServicePort.getAnimalById(id).get());
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @Operation(summary = "Eliminar un animal")
