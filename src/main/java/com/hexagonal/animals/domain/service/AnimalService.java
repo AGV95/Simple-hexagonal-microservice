@@ -33,8 +33,18 @@ public class AnimalService implements AnimalServicePort {
     }
 
     @Override
-    public int updateAnimal(Animal animal) {
-        return animalRepositoryPort.update(animal);
+    public int updateAnimal(Animal animal, Long id) {
+
+        if (animalRepositoryPort.findById(id).isPresent()) {
+            animal.setId(id);
+            if (animalRepositoryPort.update(animal) > 0) {
+                return 1;
+            } else {
+                return -1;
+            }
+        } else {
+            return 0;
+        }
     }
 
     @Override

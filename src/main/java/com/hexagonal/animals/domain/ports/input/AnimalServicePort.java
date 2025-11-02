@@ -12,7 +12,15 @@ public interface AnimalServicePort {
 
     List<Animal> getAllAnimals();
 
-    int updateAnimal(Animal animal);
+    /**
+     * Actualiza un animal existente. Devuelve 1 si la actualización fue exitosa, -1 si hubo un error durante la actualización,
+     * o 0 si el animal con el ID proporcionado no existe.
+     *
+     * @param animal Animal a actualizar.
+     * @param id     ID del animal a actualizar.
+     * @return int Resultado de la operación de actualización.
+     */
+    int updateAnimal(Animal animal, Long id);
 
     void deleteAnimal(Long id);
 }

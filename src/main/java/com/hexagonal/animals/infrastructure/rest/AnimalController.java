@@ -2,6 +2,8 @@ package com.hexagonal.animals.infrastructure.rest;
 
 import com.hexagonal.animals.domain.model.Animal;
 import com.hexagonal.animals.domain.ports.input.AnimalServicePort;
+import com.hexagonal.animals.infrastructure.responsesExceptions.NotFoundException;
+import com.hexagonal.animals.infrastructure.responsesExceptions.NotUpdatedException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -14,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/animales")
@@ -47,9 +50,13 @@ public class AnimalController {
     @GetMapping("/{id}")
     public ResponseEntity<Animal> getAnimalById(
             @Parameter(description = "ID del animal") @PathVariable Long id) {
-        return animalServicePort.getAnimalById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Optional<Animal> updatedAnimal = animalServicePort.getAnimalById(id);
+
+        if (updatedAnimal.isPresent()) {
+            return ResponseEntity.ok(animalServicePort.getAnimalById(id).get());
+        } else {
+            throw new NotFoundException();
+        }
     }
 
     @Operation(summary = "Obtener todos los animales")
@@ -65,23 +72,30 @@ public class AnimalController {
             @ApiResponse(responseCode = "200", description = "Animal actualizado exitosamente",
                     content = @Content(schema = @Schema(implementation = Animal.class))),
             @ApiResponse(responseCode = "404", description = "Animal no encontrado"),
-            @ApiResponse(responseCode = "400", description = "Datos del animal inválidos")
+            @ApiResponse(responseCode = "400", description = "Datos del animal inválidos"),
+            @ApiResponse(responseCode = "304", description = "Error al actualizar el animal")
     })
     @PutMapping("/{id}")
     public ResponseEntity<Animal> updateAnimal(
             @Parameter(description = "ID del animal") @PathVariable Long id,
             @Parameter(description = "Nuevos datos del animal") @RequestBody Animal animal) {
 
-        if (animalServicePort.getAnimalById(id).isPresent()) {
-            animal.setId(id);
-            if (animalServicePort.updateAnimal(animal) > 0) {
-                return ResponseEntity.ok(animalServicePort.getAnimalById(id).get());
+        int result = animalServicePort.updateAnimal(animal, id);
+        if (result > 0) {
+            Optional<Animal> updatedAnimal = animalServicePort.getAnimalById(id);
+
+            if (updatedAnimal.isPresent()) {
+                return ResponseEntity.ok(updatedAnimal.get());
             } else {
-                return ResponseEntity.notFound().build();
+                throw new NotFoundException();
             }
-        } else {
-            return ResponseEntity.notFound().build();
+
+        } else if (result == 0) {
+            throw new NotFoundException();
+        } else if (result == -1) {
+            throw new NotUpdatedException();
         }
+        return ResponseEntity.internalServerError().build();
     }
 
     @Operation(summary = "Eliminar un animal")
@@ -96,6 +110,6 @@ public class AnimalController {
             animalServicePort.deleteAnimal(id);
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.notFound().build();
+        throw new NotFoundException();
     }
 }
