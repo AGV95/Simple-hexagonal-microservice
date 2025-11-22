@@ -3,7 +3,7 @@ package com.hexagonal.animals.infrastructure.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "animals")
+@Table(name = "animal_table")
 public class AnimalEntity {
 
     @Id
