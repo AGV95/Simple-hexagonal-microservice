@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface AnimalJpaRepository extends JpaRepository<AnimalEntity, Long> {
 
-    @Query("UPDATE AnimalEntity a SET a.nombre = :nombre, a.especie = :especie, a.edad = :edad WHERE a.id = :id")
+    @Query("UPDATE animal_tabla a SET a.nombre = :nombre, a.especie = :especie, a.edad = :edad WHERE a.id = :id")
     @Modifying
     @Transactional
     int update(@Param("id") Long id,
