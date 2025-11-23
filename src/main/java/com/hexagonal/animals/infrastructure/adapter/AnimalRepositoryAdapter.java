@@ -52,9 +52,9 @@ public class AnimalRepositoryAdapter implements AnimalRepositoryPort {
     public int update(Animal animal) {
         return animalJpaRepository.update(
                 animal.getId(),
-                animal.getNombre(),
-                animal.getEspecie(),
-                animal.getEdad()
+                animal.getName(),
+                animal.getSpecies(),
+                animal.getAge()
         );
 
     }

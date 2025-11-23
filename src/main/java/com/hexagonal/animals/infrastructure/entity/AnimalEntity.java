@@ -10,27 +10,39 @@ public class AnimalEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nombre", nullable = false)
-    private String nombre;
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    @Column(name = "especie", nullable = false)
-    private String especie;
+    @Column(name = "species", nullable = false)
+    private String species;
 
-    @Column(name = "edad", nullable = false)
-    private int edad;
+    @Column(name = "age", nullable = false)
+    private int age;
 
     @Column(name = "habitat")
     private String habitat;
+    @Column(name = "created", updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private String created;
+    @Column(name = "updated", updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private String updated;
 
-    public AnimalEntity(String nombre, String especie, int edad, String habitat) {
-        this.nombre = nombre;
-        this.especie = especie;
-        this.edad = edad;
+    public AnimalEntity(String name, String species, int age, String habitat) {
+        this.name = name;
+        this.species = species;
+        this.age = age;
         this.habitat = habitat;
     }
 
     public AnimalEntity() {
 
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
     }
 
     public Long getId() {
@@ -41,28 +53,28 @@ public class AnimalEntity {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getEspecie() {
-        return especie;
+    public String getSpecies() {
+        return species;
     }
 
-    public void setEspecie(String especie) {
-        this.especie = especie;
+    public void setSpecies(String species) {
+        this.species = species;
     }
 
-    public int getEdad() {
-        return edad;
+    public int getAge() {
+        return age;
     }
 
-    public void setEdad(int edad) {
-        this.edad = edad;
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public String getHabitat() {
@@ -71,5 +83,13 @@ public class AnimalEntity {
 
     public void setHabitat(String habitat) {
         this.habitat = habitat;
+    }
+
+    public String getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(String updated) {
+        this.updated = updated;
     }
 }

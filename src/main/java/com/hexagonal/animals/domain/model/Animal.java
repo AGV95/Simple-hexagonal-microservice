@@ -5,41 +5,41 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Animal {
 
     private Long id;
-    private String nombre;
-    private String especie;
-    private int edad;
+    private String name;
+    private String species;
+    private int age;
     private String habitat;
 
-    public Animal(Long id, String nombre, String especie, int edad, String habitat) {
+    public Animal(Long id, String name, String species, int age, String habitat) {
         this.id = id;
-        this.nombre = nombre;
-        this.especie = especie;
-        this.edad = edad;
+        this.name = name;
+        this.species = species;
+        this.age = age;
         this.habitat = habitat;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getEspecie() {
-        return especie;
+    public String getSpecies() {
+        return species;
     }
 
-    public void setEspecie(String especie) {
-        this.especie = especie;
+    public void setSpecies(String species) {
+        this.species = species;
     }
 
-    public int getEdad() {
-        return edad;
+    public int getAge() {
+        return age;
     }
 
-    public void setEdad(int edad) {
-        this.edad = edad;
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public String getHabitat() {

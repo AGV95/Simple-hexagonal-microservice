@@ -8,16 +8,16 @@ import org.springframework.stereotype.Component;
 public class AnimalMapper {
 
     public AnimalEntity toEntity(Animal animal) {
-        return new AnimalEntity(animal.getNombre(), animal.getEspecie(),
-                animal.getEdad(), animal.getHabitat());
+        return new AnimalEntity(animal.getName(), animal.getSpecies(),
+                animal.getAge(), animal.getHabitat());
     }
 
     public Animal toDomain(AnimalEntity entity) {
         return new Animal(
                 entity.getId(),
-                entity.getNombre(),
-                entity.getEspecie(),
-                entity.getEdad(),
+                entity.getName(),
+                entity.getSpecies(),
+                entity.getAge(),
                 entity.getHabitat()
         );
     }

@@ -53,6 +53,18 @@
             <version>2.2.0</version>
         </dependency>
 
+        <!-- Para seguridad básica en Spring -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <!-- Para gestionar datos en Redis, si usamos Redis para tokens -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
