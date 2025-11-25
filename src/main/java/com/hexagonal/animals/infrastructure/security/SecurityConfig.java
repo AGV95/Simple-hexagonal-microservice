@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -17,14 +18,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http,
                                                    TokenAuthenticationFilter tokenAuthenticationFilter) throws Exception {
         return http
-                .csrf(csrf -> csrf.ignoringRequestMatchers(
-                        new AntPathRequestMatcher("/auth/login"),
-                        new AntPathRequestMatcher("/h2-console/**"),
-                        new AntPathRequestMatcher("/api-docs/**"),
-                        new AntPathRequestMatcher("/swagger-ui/**"),
-                        new AntPathRequestMatcher("/swagger-ui.html"),
-                        new AntPathRequestMatcher("/webjars/**")
-                ))
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 new AntPathRequestMatcher("/auth/login"),

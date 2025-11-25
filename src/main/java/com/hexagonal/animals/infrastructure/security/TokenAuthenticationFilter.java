@@ -22,7 +22,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
     private TokenService tokenService;
-
+    
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
@@ -54,4 +54,5 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         // Continúa la cadena de filtros
         filterChain.doFilter(request, response);
     }
+
 }
